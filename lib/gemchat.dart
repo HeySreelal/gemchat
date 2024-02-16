@@ -24,20 +24,9 @@ Future<void> textMessageHandler(Context<GenAISession> ctx) async {
     _makeSureSessionIsInitialized(ctx);
     final response = await ctx.session.chat!.sendMessage(content);
     final text = response.text ?? "I'm sorry, I couldn't understand that.";
-    if (text.length > 4096) {
-      final chunks = text.split(RegExp(r"(.|[\r\n]){1,4096}"));
-      for (final chunk in chunks) {
-        await ctx.reply(
-          chunk,
-          parseMode: ParseMode.markdown,
-        );
-      }
-    } else {
-      await ctx.reply(
-        text,
-        parseMode: ParseMode.markdown,
-      );
-    }
+    final chunks =
+        text.length > 4096 ? text.split(RegExp(r"(.|[\r\n]){1,4096}")) : [text];
+    await _sendContent(ctx, chunks);
   } catch (e) {
     await ctx.reply("I'm sorry, something went wrong. Here's the error: $e");
   }
@@ -46,5 +35,17 @@ Future<void> textMessageHandler(Context<GenAISession> ctx) async {
 void _makeSureSessionIsInitialized(Context<GenAISession> ctx) {
   if (ctx.session.chat == null) {
     ctx.session.setSession(gem.startChat());
+  }
+}
+
+Future<void> _sendContent(
+  Context<GenAISession> ctx,
+  List<String> content,
+) async {
+  for (final chunk in content) {
+    await ctx.reply(
+      chunk,
+      parseMode: ParseMode.markdown,
+    );
   }
 }
