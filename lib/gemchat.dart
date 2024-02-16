@@ -13,7 +13,7 @@ Future<void> starter(Context<GenAISession> ctx) async {
   await ctx.reply(
     "Hello, world! I'm Gem, your personal portal to Google's best AI model, Gemini. I can help you with a lot of things, like generating text, summarizing articles, and much more. Just send me a message and I'll do my best to help you out!",
   );
-  ctx.session.setSession(gem.startChat());
+  _makeSureSessionIsInitialized(ctx);
 }
 
 Future<void> textMessageHandler(Context<GenAISession> ctx) async {
