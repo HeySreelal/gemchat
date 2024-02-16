@@ -41,12 +41,6 @@ Gem Chat relies on two crucial environment variables for seamless operation:
 
 With these environment variables properly configured, Gem Chat is ready to engage in intelligent conversations powered by Google's AI prowess.
 
-### Example:
-```
-BOT_TOKEN=<your_telegram_bot_token>
-GOOGLE_AI_TOKEN=<your_google_ai_token>
-```
-
 Embrace the potential of Gem Chat, where every conversation is an exploration into the realms of artificial intelligence.
 
 ## Thanks!
