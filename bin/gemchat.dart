@@ -1,5 +1,8 @@
 import 'package:gemchat/gemchat.dart';
+import 'package:gemchat/session.dart';
 
 void main(List<String> arguments) {
-  bot.start();
+  bot.initSession(GenAISession.init);
+  bot.start(starter);
+  bot.onText(textMessageHandler);
 }
